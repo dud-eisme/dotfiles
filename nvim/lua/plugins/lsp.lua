@@ -73,6 +73,17 @@ return {
     -- 3. Configure and enable each server with its own settings + shared capabilities
     for name, opts in pairs(servers) do
       opts.capabilities = capabilities
+      -- Disable semantic tokens: Neovim's LSP client applies its own
+      -- @lsp.type.*/@lsp.mod.* highlight groups on top of treesitter's
+      -- captures, and if the colorscheme doesn't fully style those groups
+      -- they render unstyled/washed-out -- this only shows up on
+      -- LSP-attached buffers (e.g. .cpp via clangd), not plain files like
+      -- markdown or a Makefile, which matches what we're seeing. Turning
+      -- this off leaves treesitter's own highlighting (which tokyonight
+      -- fully supports) as the only source of truth.
+      opts.on_init = function(client)
+        client.server_capabilities.semanticTokensProvider = nil
+      end
       vim.lsp.config(name, opts)
       vim.lsp.enable(name)
     end

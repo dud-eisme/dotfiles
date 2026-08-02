@@ -1,9 +1,9 @@
-terminal         = "alacritty"
+terminal         = "kitty"
 fileManager      = "dolphin"
 browser          = "firefox"
 virtManager      = "virt-manager"
 audioManager     = "pavucontrol"
-musicPlayer      = "alacritty --class spotify_player -e spotify_player"
+musicPlayer      = "spotify"
 discord          = "vesktop"
 minecraft        = "minecraft-launcher"
 

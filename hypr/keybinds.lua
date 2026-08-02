@@ -21,15 +21,16 @@ hl.bind("SUPER + M", hl.dsp.exec_cmd(minecraft))
 
 
 --- CyberSec  ---
-hl.bind("SUPER + C", hl.dsp.exec_cmd("alacritty --class cybersec --working-directory ~/Workspace/CyberSec -e fish -C 'source .CyberSec/bin/activate.fish; cd wGet; clear'"))
+hl.bind("SUPER + C", hl.dsp.exec_cmd("kitty --class cybersec --working-directory ~/Workspace/CyberSec -e fish -C 'source .CyberSec/bin/activate.fish; cd wGet; clear'"))
 hl.bind("SUPER + B", hl.dsp.exec_cmd("/home/joe/Workspace/CyberSec/Tools/BurpSuite/BurpSuite"))
 hl.bind("SUPER + I", hl.dsp.exec_cmd("wireshark"))
-hl.bind("SUPER + O", hl.dsp.exec_cmd("ghidra"))
+hl.bind("SUPER + O", hl.dsp.exec_cmd("~/Workspace/CyberSec/Tools/BinaryNinja/binaryninja"))
+hl.bind("SUPER + Z", hl.dsp.exec_cmd("~/Workspace/CyberSec/Tools/ZAP/zap.sh"))
 hl.bind("SUPER + U", hl.dsp.exec_cmd("audacity"))
 
 
 --- Github  ---
-hl.bind("SUPER + G", hl.dsp.exec_cmd("alacritty --class github --working-directory ~/Workspace/Contributions/ -e fish -C 'clear; echo 'Repos:'; ls'"))
+hl.bind("SUPER + G", hl.dsp.exec_cmd("kitty --class github --working-directory ~/Workspace/Contributions/ -e fish -C 'clear; echo 'Repos:'; ls'"))
 
 ---   Window Manager	---
 hl.bind("SUPER + Q", hl.dsp.window.close())
@@ -121,13 +122,19 @@ hl.bind("SUPER + Equal", function() zoomfunction(0.3) end, { repeating = true, d
 
 
 ---	Workspaces	---
-local specialActive = false
+local function isSpecialActive()
+  for _, m in pairs(hl.get_monitors()) do
+    if m.focused then
+      return m.active_special_workspace ~= nil
+    end
+  end
+  return false
+end
 
 local function focusWorkspace(target)
   return function()
-    if specialActive then
+    if isSpecialActive() then
       hl.dispatch(hl.dsp.workspace.toggle_special("special"))
-      specialActive = false
     end
     hl.dispatch(hl.dsp.focus({ workspace = target }))
   end
@@ -146,7 +153,6 @@ hl.bind("SUPER + ALT + S",
   hl.dsp.window.move({ workspace = "special:special", follow = false }), { description = "Window: Send to scratchpad" })
 
 hl.bind("SUPER + S", function()
-  specialActive = not specialActive
   hl.dispatch(hl.dsp.workspace.toggle_special("special"))
 end)
 
