@@ -48,6 +48,14 @@ hl.window_rule({
   float = true,
 })
 
+-- Kitty
+hl.window_rule({
+  name  = "kitty-glass-opacity",
+  match = { class = "^kitty$" },
+  opacity = "1 1",
+  xray = true,
+})
+
 
 
 -----------------------

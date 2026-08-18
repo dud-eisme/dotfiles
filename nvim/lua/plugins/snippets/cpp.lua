@@ -30,4 +30,18 @@ return {
       "}"
     }),
   }),
-}
+  s("lab", {
+    t({
+      "#include <iostream>",
+      "using namespace std;",
+      "",
+      "int main() {",
+      "  ",
+    }),
+    i(1),
+    t({
+      "",
+      "  return 0;",
+      "}"
+    }),
+  }),}

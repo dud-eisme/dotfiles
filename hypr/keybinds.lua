@@ -17,7 +17,8 @@ hl.bind("SUPER + V", hl.dsp.exec_cmd(virtManager))
 hl.bind("SUPER + A", hl.dsp.exec_cmd(audioManager))
 hl.bind("SUPER + P", hl.dsp.exec_cmd(musicPlayer))
 hl.bind("SUPER + D", hl.dsp.exec_cmd(discord))
-hl.bind("SUPER + M", hl.dsp.exec_cmd(minecraft))
+hl.bind("SUPER + L", hl.dsp.exec_cmd("lunarclient"))
+hl.bind("SUPER + T", hl.dsp.exec_cmd("obs"))
 
 
 --- CyberSec  ---
@@ -146,6 +147,13 @@ for i = 1, 10 do
   hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = i, follow = false }))
 end
 
+for i = 1, 2 do
+    local keys = { "Left", "Right" }
+    local prefix = { "r-", "r+" }
+    local descdir = { "left", "right" }
+    hl.bind("CTRL + SUPER + " .. keys[i], hl.dsp.focus({ workspace = prefix[i] .. "1" }), {description = "Workspace: Focus " .. descdir[i]})
+end
+
 hl.bind("SUPER + mouse_down", focusWorkspace("+1"))
 hl.bind("SUPER + mouse_up", focusWorkspace("-1"))
 
@@ -157,3 +165,5 @@ hl.bind("SUPER + S", function()
 end)
 
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region -o ~/Pictures/Screenshots"))
+
+hl.bind("SUPER + H", hl.dsp.window.float({ action = "toggle" }))
