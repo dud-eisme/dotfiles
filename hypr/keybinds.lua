@@ -17,7 +17,7 @@ hl.bind("SUPER + V", hl.dsp.exec_cmd(virtManager))
 hl.bind("SUPER + A", hl.dsp.exec_cmd(audioManager))
 hl.bind("SUPER + P", hl.dsp.exec_cmd(musicPlayer))
 hl.bind("SUPER + D", hl.dsp.exec_cmd(discord))
-hl.bind("SUPER + L", hl.dsp.exec_cmd("lunarclient"))
+hl.bind("SUPER + M", hl.dsp.exec_cmd("lunarclient"))
 hl.bind("SUPER + T", hl.dsp.exec_cmd("obs"))
 
 
@@ -167,3 +167,5 @@ end)
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region -o ~/Pictures/Screenshots"))
 
 hl.bind("SUPER + H", hl.dsp.window.float({ action = "toggle" }))
+
+hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"))
