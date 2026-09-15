@@ -35,15 +35,30 @@ return {
         cpp = { "clang-format" },
         lua = { "stylua" },
       },
-      -- Give clang-format an explicit style so it doesn't silently fall
-      -- back to its own default (Attach) when no .clang-format file is
-      -- found in the project. This mirrors the style previously set as
-      -- clangd's --fallback-style, since conform.nvim -- not clangd --
-      -- is what's actually running clang-format here.
+      -- Give clang-format an explicit style. conform's built-in
+      -- "clang-format" formatter (lua/conform/formatters/clang-format.lua)
+      -- passes no -style flag of its own, so without this clang-format
+      -- falls back to its own default of `-style=file`, which walks up
+      -- the directory tree looking for a .clang-format/_clang-format
+      -- file and only uses LLVM if none is found. If you're still seeing
+      -- Allman-style braces (brace on its own line after `if`/`else` too)
+      -- after this, run :ConformInfo on a .cpp buffer to confirm
+      -- clang-format is the formatter actually running (not clangd's
+      -- LSP-based formatting) and check for a stray .clang-format file
+      -- up the tree -- an explicit --style string like this one always
+      -- wins over that file as long as it parses.
+      --
+      -- Stroustrup = Attach (braces stay on the `if`/`else`/function
+      -- line) + a forced line break before `else`/`catch`/function
+      -- bodies, i.e. exactly:
+      --   if (x) {
+      --   }
+      --   else {
+      --   }
       formatters = {
         ["clang-format"] = {
           prepend_args = {
-            "--style={ BasedOnStyle: LLVM, BreakBeforeBraces: Stroustrup }",
+            "--style={BasedOnStyle: LLVM, BreakBeforeBraces: Custom, BraceWrapping: {AfterFunction: false, AfterControlStatement: false, AfterClass: false, AfterStruct: false, AfterUnion: false, AfterEnum: false, AfterNamespace: false, BeforeElse: true, BeforeCatch: true, IndentBraces: false, SplitEmptyFunction: true, SplitEmptyRecord: true, SplitEmptyNamespace: true}}",
           },
         },
       },

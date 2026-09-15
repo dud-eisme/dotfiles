@@ -17,6 +17,7 @@
     "break",
     { "type": "custom", "format": "Hardware" },
     { "type": "cpu", "key": "CPU", "format": "{name} @ {freq-max}" },
+    { "type": "gpu", "key": "GPU", "format": "{name}", "detectionMethod": "auto", "hideType": "integrated" },
     { "type": "memory", "key": "RAM" }
   ]
 }

@@ -18,6 +18,14 @@ return {
       clangd = {
         cmd = { "clangd", "--background-index", "--clang-tidy" },
       },
+      -- "rust_analyzer" is the correct/canonical id in both Mason's
+      -- registry and nvim-lspconfig for rust-analyzer -- this entry was
+      -- already right. (If you outgrow plain lspconfig -- e.g. want
+      -- automatic cargo workspace/build-script handling, inline macro
+      -- expansion, better multi-crate support -- the community default
+      -- these days is the standalone "mrcjkb/rustaceanvim" plugin
+      -- instead of configuring rust_analyzer here; happy to wire that up
+      -- if you want it, just ask.)
       rust_analyzer = {
         settings = {
           ["rust-analyzer"] = {
@@ -25,6 +33,17 @@ return {
           },
         },
       },
+      -- A few more common languages, wired up the same way as the rest
+      -- of this table (empty {} = just merge `capabilities` below and
+      -- use every other default). Trim whichever of these you don't
+      -- actually use.
+      gopls = {},
+      bashls = {},
+      jsonls = {},
+      yamlls = {},
+      html = {},
+      cssls = {},
+      marksman = {}, -- markdown
       lua_ls = {
         settings = {
           Lua = {

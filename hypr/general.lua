@@ -4,7 +4,7 @@
 
 hl.monitor({
   output   = "eDP-1",
-  mode     = "2560x1600@60",
+  mode     = "2560x1600@240",
   position = "0x0",
   scale    = 1,
 })
